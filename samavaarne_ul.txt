@@ -1,0 +1,4 @@
+andmetabel lennureis: (id,start,lõpp,aeg,lennuk,juht)
+*Koosta tabel. Loo SQL-laused lennu sisestamiseks(start,lõpp,aeg), lennule lennuki määramine, lennukile juhi määramine.
+*Koosta leht lennu sisestamiseks(start ja lõpp, aeg). Koosta leht juba tellitud lendudele, kuid ilma juhita vedude nägemiseks. Võimalda lennule määrata juht.
+*Näita lehel lende,mille juht või lennuki number määramata. Võimalda neid määrata.
