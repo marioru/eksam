@@ -4,7 +4,11 @@ CREATE TABLE veod (
 	ots VARCHAR(255) NOT NULL,
 	aeg TIME,
     autonr INT,
-	juht VARCHAR(255),
-	valmis VARCHAR(255)
+	juht VARCHAR(255)
 );
+
+
+
+
+INSERT INTO veod VALUES ('Viljandi', 'Tallinn', 11, 456, 'Meelis Mets');
 

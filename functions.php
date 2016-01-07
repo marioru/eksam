@@ -14,8 +14,8 @@
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("INSERT INTO veod (id, algus, ots, autonr, juht, valmis) VALUES (?,?,?,?,?,?)");
-		$stmt->bind_param("isssss", $_SESSION["logged_in_user_id"], $from, $where);
+		$stmt = $mysqli->prepare("INSERT INTO veod (id, algus, ots, autonr, juht) VALUES (?,?,?,?,?)");
+		$stmt->bind_param("issss", $_SESSION["logged_in_user_id"], $from, $where);
 		
 		//sõnum
 		$message = "";
