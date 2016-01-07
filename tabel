@@ -1,1 +1,10 @@
-...
+CREATE TABLE veod (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    algus VARCHAR(255) NOT NULL,
+	ots VARCHAR(255) NOT NULL,
+	aeg TIME,
+    autonr INT,
+	juht VARCHAR(255),
+	valmis VARCHAR(255)
+);
+

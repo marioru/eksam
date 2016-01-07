@@ -1,0 +1,12 @@
+body {
+	
+	background-color: white;
+
+}
+body, table, h2, form
+{
+	margin:30px;
+	padding:10px;
+}
+
+table {background-color: white}
