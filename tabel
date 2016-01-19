@@ -10,5 +10,6 @@ CREATE TABLE veod (
 
 
 
+
 INSERT INTO veod VALUES ('Viljandi', 'Tallinn', 11, 456, 'Meelis Mets');
 

@@ -1,14 +1,15 @@
 <?php
+
 	//Loome ühenduse andmebaasiga
 	require_once("../config_global.php");
 	$database = "if15_mkoinc_3";
 	session_start();
 	
 	
-	function addReview($from, $where, $timeh){
+	function addveod($algus, $ots, $aeg){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("INSERT INTO veod (id, algus, ots, aeg, autonr, juht) VALUES (?, ?, ?, ?, ?, ?)");
-		$stmt->bind_param("isssss", $_SESSION["logged_in_user_id"], $from, $where, $timeh);
+		$stmt = $mysqli->prepare("INSERT INTO veod (algus, ots, aeg, autonr, juht) VALUES (?, ?, ?, ?, ?)");
+		$stmt->bind_param("sssss",$algus, $ots, $aeg);
 		
 		//sõnum
 		$message= "";
@@ -30,69 +31,49 @@
 	
 	
 	//annan vaikeväärtuse
-	function getReviewData($keyword=""){
+	function getveodData(){
 		
-		$search="%%";
-		
-		//kas otsisõna on tühi
-		if($keyword==""){
-			//ei otsi midagi
-			//echo "Ei otsi";
-			
-		}else{
-			//otsin
-			echo "Otsin " .$keyword;
-			$search="%".$keyword."%";
-			// "linex"
-			// "%linex%"
-			
-		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT id, algus, ots, aeg, autonr, juht FROM veod WHERE deleted IS NULL AND (algus LIKE ?)");
-		$stmt->bind_param("s", $search);
-		$stmt->bind_result($id, $from, $mwhere, $timeh, $carnr, $driver);
+		$stmt = $mysqli->prepare("SELECT id, algus, ots, aeg, autonr, juht FROM veod WHERE seis IS NULL");
+		$stmt->bind_result($id, $algus, $ots, $aeg, $autonr, $juht);
 		$stmt->execute();
 		
-		//tekitan tühja massiivi, kus edaspidi hoian objekte
-		$review_array = array ();
+		$veod_array = array ();
 		
-		//tee midagi seni, kuni saame andmebaasist ühe rea andmeid
+	
 		while($stmt->fetch()){
-			//seda siin sees tehakse nii mitu korda kui on ridu
+		
 			
-			//tekitan objekti, kus hakkan hoidma väärtusi
-			$review = new StdClass();
-			$review->id = $id;
-			$review->algus =$from;
-			$review->ots=$where;
-			$review->aeg=$timeh;
-			$review->autonr=$carnr;
-			$review->juht=$driver;
-			//lisan massiivi ühe rea juurde
 			
-			array_push($review_array, $review);
-			//var dump ütleb muutuja tüübi ja sisu
-			//echo "<pre>";
-			//var_dump($car_array);
-			//echo "</pre><br>";
+			$veod = new StdClass();
+			$veod->id = $id;
+			$veod->algus =$algus;
+			$veod->ots=$ots;
+			$veod->aeg=$aeg;
+			$veod->autonr=$autonr;
+			$veod->juht=$juht;
+			
+			
+			array_push($veod_array, $veod);
+		
 			
 		}
 		//tagastan massiivi, kus kõik read sees
-		return $review_array;
+		return $veod_array;
 		
 		$stmt->close();
 		$mysqli->close();
 		
 	}
-	function updateReview($id, $from, $mwhere, $timeh, $carnr, $driver){
+	function updateveod($id, $autonr, $juht){
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("UPDATE veod SET algus=?,  ots=?, aeg=? , autonr=?, juht=? WHERE id=?");
+		$stmt = $mysqli->prepare("UPDATE veod SET autonr=?, juht=? WHERE id=?");
 		echo $mysqli->error;
-		$stmt->bind_param("sssi", $from, $where, $timeh, $id);
+		$stmt->bind_param("ssi",  $autonr, $juht, $id);
 		if($stmt->execute()){
 
-		header("Location: table.php");
+		header("Location: juhita.php");
 			
 		}
 		$stmt->close();

@@ -1,5 +1,6 @@
 <?php
 
+
 	//loob AB'i ühenduse
 	
 	require_once("../config_global.php");
@@ -10,12 +11,12 @@
 	
 	
 	
-	function addveod($from, $where, $timeh) {
+	function addveod($algus, $ots, $aeg) {
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("INSERT INTO veod (id, algus, ots, autonr, juht) VALUES (?,?,?,?,?)");
-		$stmt->bind_param("issss", $_SESSION["logged_in_user_id"], $from, $where);
+		$stmt = $mysqli->prepare("INSERT INTO veod (algus, ots, aeg) VALUES (?,?,?)");
+		$stmt->bind_param("sss", $algus, $ots, $aeg);
 		
 		//sõnum
 		$message = "";
@@ -27,8 +28,7 @@
 			 
 			
 		}else{
-			// kui on väärtus FALSE
-			// siis kuvame errori
+			
 			echo $stmt->error;
 			
 		}

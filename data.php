@@ -2,46 +2,47 @@
 require_once("functions.php");
 	
 	
-	$from = "";
-	$where = "";
-	$timeh = "";
-	$from_error = "";
-	$where_error = "";
-	$timeh_error = "";
+	
+	$algus = "";
+	$ots = "";
+	$aeg = "";
+	$algus_error = "";
+	$ots_error = "";
+	$aeg_error = "";
 	
 	// keegi vajutas nuppu
-	if(isset($_POST["from"])){
+	if(isset($_POST["veo_leht"])){
 		
 		
 		// valideerite väljad
-		if ( empty($_POST["from"]) ) {
-			$from_error = "See väli on kohustuslik";
+		if ( empty($_POST["algus"]) ) {
+			$algus_error = "See väli on kohustuslik";
 		}else{
-			$from = cleanInput($_POST["from"]);
+			$algus = cleanInput($_POST["algus"]);
 		}
 		
-		if ( empty($_POST["where"]) ) {
-			$where_error = "See väli on kohustuslik";
+		if ( empty($_POST["ots"]) ) {
+			$ots_error = "See väli on kohustuslik";
 		}else{
-			$where_material = cleanInput($_POST["where"]);
+			$ots = cleanInput($_POST["ots"]);
 		}
 		
-		if ( empty($_POST["timeh"]) ) {
-			$where_error = "See väli on kohustuslik";
+		if ( empty($_POST["aeg"]) ) {
+			$aeg_error = "See väli on kohustuslik";
 		}else{
-			$timeh = cleanInput($_POST["timeh"]);
+			$aeg = cleanInput($_POST["aeg"]);
 		}
 		
-		if($where_error == "" && $from_error == "" && $timeh_error == ""){
+		if($algus_error == "" && $ots_error == "" && $aeg_error == ""){
 			//salvestate ab'i fn kaudu Orders'isse
 			// message funktsioonist
-			$msg = addveod($from, $where, $timeh);
+			$msg = addveod($algus, $ots, $aeg);
 			
 			if($msg != ""){
 				//õnnestus, teeme inputi väljad tühjaks
-				$from = "";
-				$where = "";
-				$timeh = "";
+				$algus = "";
+				$ots = "";
+				$aeg = "";
 				
 				echo $msg;
 				
@@ -65,11 +66,11 @@ require_once("functions.php");
 <link rel="stylesheet" type="text/css" href="kujundus.css">	
 <h2>Lisa oma veotellimus</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-	<label for="from" >Algus</label><br>
-	<input id="from" name="from" type="text" value="<?php echo $from; ?>"> <?php echo $from_error; ?><br><br>
-	<label for="where">Ots</label><br>
-	<input id="where" name="where" type="text" value="<?php echo $where; ?>"> <?php echo $where_error; ?><br><br>
-	<label for="timeh">Aeg</label><br>
-	<input id="where" name="where" type="text" value="<?php echo $timeh; ?>"> <?php echo $timeh_error; ?><br><br>
-	<input type="submit" name="add_product" value="Salvesta">
+	<label for= "algus" >Algus</label><br>
+	<input id="algus" name= "algus" type="text" value="<?php echo $algus; ?>"> <?php echo $algus_error; ?><br><br>
+	<label for="ots">Ots</label><br>
+	<input id="ots" name="ots" type="text" value="<?php echo $ots; ?>"> <?php echo $ots_error; ?><br><br>
+	<label for="aeg">Aeg</label><br>
+	<input id="aeg" name="aeg" type="text" value="<?php echo $aeg; ?>"> <?php echo $aeg_error; ?><br><br>
+	<input type="submit" name="veo_leht" value="Salvesta">
 </form>
